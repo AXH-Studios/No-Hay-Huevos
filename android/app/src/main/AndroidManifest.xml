@@ -38,6 +38,8 @@
             android:name=".PikeDetailsActivity"
             android:label="@string/title_activity_pike_details"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".WizardStep1Activity" />
+        <activity android:name=".WizardStep2Activity"></activity>
     </application>
 
 </manifest>
