@@ -1,0 +1,73 @@
+{
+	"variables": [],
+	"info": {
+		"name": "NoHayHuevos",
+		"_postman_id": "3ddb197f-42f5-4ea1-6c23-f4b837f76e7c",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get porra",
+			"request": {
+				"url": "localhost:1337/api/porra/57",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "save porra",
+			"request": {
+				"url": "localhost:1337/api/porra/?userId=pepe",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": 5,\n    \"description\": \"Mi primera porra\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "participar porra",
+			"request": {
+				"url": "localhost:1337/api/user/juan/porra/57",
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "historico porras ",
+			"request": {
+				"url": "localhost:1337/api/user/juan/porra/",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
