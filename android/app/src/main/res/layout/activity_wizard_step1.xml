@@ -20,7 +20,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nombre de la apuesta"
+            android:text="Nombre de la apuesta:"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/textView"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.27"/>
@@ -28,7 +29,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
+            android:id="@+id/descripcion"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.04" />
 
@@ -39,8 +40,8 @@
             <Button
                 android:layout_width="372dp"
                 android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/button"
+                android:text="Siguiente"
+                android:id="@+id/siguiente_paso_1"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="0.5"
                 android:layout_centerVertical="true"

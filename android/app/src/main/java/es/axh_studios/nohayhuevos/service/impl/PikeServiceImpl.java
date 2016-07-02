@@ -12,6 +12,7 @@ import es.axh_studios.nohayhuevos.dao.impl.ApuestaDaoImpl;
 import es.axh_studios.nohayhuevos.domain.Apuesta;
 import es.axh_studios.nohayhuevos.domain.Participacion;
 import es.axh_studios.nohayhuevos.domain.Usuario;
+import es.axh_studios.nohayhuevos.utils.ApiUtils;
 
 /**
  * Created by Alejandro on 02/07/2016.
@@ -121,5 +122,9 @@ public class PikeServiceImpl {
         }
 
         return apuesta;
+    }
+
+    public String generarUrlCompartir(Integer id){
+        return ApiUtils.URL_BASE + "algo" + id;
     }
 }
