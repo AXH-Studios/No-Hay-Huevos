@@ -1,6 +1,7 @@
 package es.axh_studios.nohayhuevos.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Alejandro on 02/07/2016.
@@ -14,6 +15,7 @@ public class Apuesta implements Serializable {
     private Integer idOwner;
     private String estado;
     private String tipo;
+    private List<Participacion> participaciones;
 
     public Integer getId() {
         return id;
@@ -62,5 +64,13 @@ public class Apuesta implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public List<Participacion> getParticipaciones() {
+        return participaciones;
+    }
+
+    public void setParticipaciones(List<Participacion> participaciones) {
+        this.participaciones = participaciones;
     }
 }

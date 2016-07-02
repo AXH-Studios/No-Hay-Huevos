@@ -29,6 +29,17 @@ public class ApuestaDaoImpl {
         return response.body().string();
     }
 
+    public String findPike(Integer id, String user) throws IOException {
+        String url = URL_BASE+"/api/porra/"+ id +"?user=" + user;
+
+        Request request = new Request.Builder()
+                .url(url)
+                .get()
+                .build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
+
     public String createPike(String json) throws IOException {
         String url = URL_BASE+"api/payment";
 
