@@ -35,11 +35,16 @@ public class PikeServiceImpl {
             usuario.setCartera(jsonLogin.optDouble("cartera"));
             usuario.setEmail(id);
 
-            Object o = jsonLogin.get("participaciones");
-
-            JSONArray pikes = (JSONArray) o;
+            JSONArray pikes = null;
 
             List<Apuesta> listaPikes = new ArrayList<Apuesta>();
+            try{
+                Object o = jsonLogin.opt("participaciones");
+
+                pikes = (JSONArray) o;
+            } catch (Exception e){
+                return usuario;
+            }
 
             for (int i = 0; i < pikes.length(); i++) {
                 try {
@@ -50,6 +55,8 @@ public class PikeServiceImpl {
                     apuesta.setDescripcion(pike.optString("descripcion"));
                     apuesta.setCantidad(pike.optDouble("amount"));
                     apuesta.setIdOwner(pike.optInt("owner"));
+                    apuesta.setEstado(pike.optString("status"));
+                    apuesta.setTipo(pike.optString("type"));
                     listaPikes.add(apuesta);
                 } catch (Exception e) {
                     continue;

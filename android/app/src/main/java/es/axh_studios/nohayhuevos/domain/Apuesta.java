@@ -12,6 +12,8 @@ public class Apuesta implements Serializable {
     private String descripcion;
     private Double cantidad;
     private Integer idOwner;
+    private String estado;
+    private String tipo;
 
     public Integer getId() {
         return id;
@@ -44,5 +46,21 @@ public class Apuesta implements Serializable {
 
     public void setIdOwner(Integer idOwner) {
         this.idOwner = idOwner;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }

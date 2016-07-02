@@ -160,15 +160,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
                 case 1:
-                    apuestas.addAll(apuestasUsuario);
+                    for(Apuesta apuesta : apuestasUsuario){
+                        if("playing".equals(apuesta.getEstado())){
+                            apuestas.add(apuesta);
+                        }
+                    }
                     break;
                 case 2:
-                    for(Apuesta apuesta : apuestasUsuario){
-                        // TODO Filtro
-                        //if(usuarioConectado.getId().equals(apuesta.getIdOwner())){
-                        apuestas.add(apuesta);
-                        //}
-                    }
+                    apuestas.addAll(apuestasUsuario);
                     break;
                 default:
             }
