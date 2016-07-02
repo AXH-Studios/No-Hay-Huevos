@@ -52,11 +52,16 @@ public class PikeServiceImpl {
 
                     Apuesta apuesta = new Apuesta();
                     apuesta.setId(pike.optInt("id"));
-                    apuesta.setDescripcion(pike.optString("descripcion"));
-                    apuesta.setCantidad(pike.optDouble("amount"));
-                    apuesta.setIdOwner(pike.optInt("owner"));
-                    apuesta.setEstado(pike.optString("status"));
-                    apuesta.setTipo(pike.optString("type"));
+
+                    Object o = pike.opt("porra");
+
+                    JSONObject porra = (JSONObject) o;
+                    apuesta.setIdOwner(porra.optInt("owner"));
+                    apuesta.setDescripcion(porra.optString("descripcion"));
+                    apuesta.setCantidad(porra.optDouble("amount"));
+                    apuesta.setEstado(porra.optString("status"));
+                    apuesta.setTipo(porra.optString("type"));
+
                     listaPikes.add(apuesta);
                 } catch (Exception e) {
                     continue;
