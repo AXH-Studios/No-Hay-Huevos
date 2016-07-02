@@ -1,23 +1,28 @@
 package es.axh_studios.nohayhuevos;
 
-import android.support.design.widget.TabLayout;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import es.axh_studios.nohayhuevos.application.PikeApplication;
+import es.axh_studios.nohayhuevos.domain.Apuesta;
+import es.axh_studios.nohayhuevos.domain.Usuario;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -141,7 +146,34 @@ public class MainActivity extends AppCompatActivity {
 
             // PlaceholderFragment.newInstance(position + 1);
 
-            return ApuestaFragment.newInstance();
+            PikeApplication aplicacion = (PikeApplication) getApplication();
+            final Usuario usuarioConectado = aplicacion.getUsuarioConectado();
+
+            List<Apuesta> apuestasUsuario = usuarioConectado.getPikes();
+            List<Apuesta> apuestas = new ArrayList<>();
+            switch (position){
+                case 0:
+                    for(Apuesta apuesta : apuestasUsuario){
+                        if(usuarioConectado.getId().equals(apuesta.getIdOwner())){
+                            apuestas.add(apuesta);
+                        }
+                    }
+                    break;
+                case 1:
+                    apuestas.addAll(apuestasUsuario);
+                    break;
+                case 2:
+                    for(Apuesta apuesta : apuestasUsuario){
+                        // TODO Filtro
+                        //if(usuarioConectado.getId().equals(apuesta.getIdOwner())){
+                        apuestas.add(apuesta);
+                        //}
+                    }
+                    break;
+                default:
+            }
+
+            return ApuestaFragment.newInstance(apuestas);
         }
 
         @Override

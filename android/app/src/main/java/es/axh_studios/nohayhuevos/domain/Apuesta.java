@@ -8,15 +8,16 @@ import java.io.Serializable;
 public class Apuesta implements Serializable {
 
 
-    private String id;
+    private Integer id;
     private String descripcion;
     private Double cantidad;
+    private Integer idOwner;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -35,5 +36,13 @@ public class Apuesta implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public Integer getIdOwner() {
+        return idOwner;
+    }
+
+    public void setIdOwner(Integer idOwner) {
+        this.idOwner = idOwner;
     }
 }

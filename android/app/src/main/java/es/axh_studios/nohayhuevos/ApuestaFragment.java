@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import es.axh_studios.nohayhuevos.domain.Apuesta;
-import es.axh_studios.nohayhuevos.utils.ApiUtils;
 
 /**
  * A fragment representing a list of Items.
@@ -25,11 +24,10 @@ public class ApuestaFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private static List<Apuesta> apuestas;
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-
-    private List<Apuesta> apuestas;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -40,11 +38,13 @@ public class ApuestaFragment extends Fragment {
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static ApuestaFragment newInstance() {
+    public static ApuestaFragment newInstance(List<Apuesta> listaApuestas) {
         ApuestaFragment fragment = new ApuestaFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, 1);
         fragment.setArguments(args);
+
+        apuestas = listaApuestas;
 
         return fragment;
     }
@@ -63,7 +63,6 @@ public class ApuestaFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_apuesta_list, container, false);
 
-        apuestas = ApiUtils.generarApuestas();
 
         // Set the adapter
         if (view instanceof RecyclerView) {

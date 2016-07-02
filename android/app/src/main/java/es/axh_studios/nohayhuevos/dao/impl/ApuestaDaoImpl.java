@@ -12,7 +12,7 @@ import okhttp3.Response;
 /**
  * Created by Alejandro on 02/07/2016.
  */
-public class ApuestaServiceImpl {
+public class ApuestaDaoImpl {
 
     private OkHttpClient client = new OkHttpClient();
     private static final MediaType JSON = ApiUtils.JSON;

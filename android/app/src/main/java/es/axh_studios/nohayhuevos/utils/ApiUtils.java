@@ -11,7 +11,7 @@ import okhttp3.MediaType;
  */
 public class ApiUtils {
 
-    public static final String URL_BASE = "178.62.87.222:1337";
+    public static final String URL_BASE = "http://178.62.87.222:1337";
 
     public static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
