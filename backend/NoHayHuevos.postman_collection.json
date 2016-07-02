@@ -10,7 +10,7 @@
 		{
 			"name": "get porra",
 			"request": {
-				"url": "localhost:1337/api/porra/57",
+				"url": "localhost:1337/api/porra/90",
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -24,7 +24,7 @@
 		{
 			"name": "save porra",
 			"request": {
-				"url": "localhost:1337/api/porra/?userId=pepe",
+				"url": "localhost:1337/api/porra/?userId=pepe@mail.com",
 				"method": "POST",
 				"header": [
 					{
@@ -35,7 +35,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"amount\": 5,\n    \"description\": \"Mi primera porra\"\n}"
+					"raw": "{\n    \"amount\": 5,\n    \"description\": \"Mi primera porra\",\n    \"status\": \"playing\",\n    \"type\": \"libre\",\n    \"value\": \"hola mundo\"\n}"
 				},
 				"description": ""
 			},
@@ -44,8 +44,28 @@
 		{
 			"name": "participar porra",
 			"request": {
-				"url": "localhost:1337/api/user/juan/porra/57",
+				"url": "localhost:1337/api/user/juan@mail.com/porra/90",
 				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"value\": \"hola soy juan\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "historico porras ",
+			"request": {
+				"url": "localhost:1337/api/user/pepe@mail.com/porra/",
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "formdata",
@@ -56,14 +76,20 @@
 			"response": []
 		},
 		{
-			"name": "historico porras ",
+			"name": "resolve porra",
 			"request": {
-				"url": "localhost:1337/api/user/juan/porra/",
-				"method": "GET",
-				"header": [],
+				"url": "localhost:1337/api/porra/90/resolve?userId=juan@mail.com&winnerId=pepe@mail.com",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
 				"body": {
-					"mode": "formdata",
-					"formdata": []
+					"mode": "raw",
+					"raw": ""
 				},
 				"description": ""
 			},

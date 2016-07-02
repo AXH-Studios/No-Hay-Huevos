@@ -14,9 +14,11 @@ module.exports = function (req, res, next) {
 
    q.spawn(function*() {
       try {
-         console.log("USER:", req.param('userId'))
-         req.user = yield User.findOne({ where: { username: req.param('userId') }});
-
+         req.user = yield User.findOne({or: [
+            { id: req.param('userId') },
+            { username: req.param('userId') }
+         ]});
+         console.log(req.user)
          // if(!req.user) {
          //    return res.forbidden('You are not permitted to perform this action.');
          // }

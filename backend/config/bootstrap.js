@@ -17,24 +17,34 @@ module.exports.bootstrap = function (cb) {
       try {
          //Create mock user
          var user1 = yield User.create({
-            username: 'pepe',
+            username: 'pepe@mail.com',
             cartera: 10.0
          })
 
          var user2 = yield User.create({
-            username: 'juan',
+            username: 'juan@mail.com',
             cartera: 10.0
          })
 
          var porra = yield Porra.create({
             owner: user1,
             amount: 2.0,
+            status: 'playing',
+            type: 'libre',
             descripcion: "Porra por defecto"
          })
 
-         porra.participantes.add([user1.id, user2.id]);
+         porra.participaciones.add([{
+            user: user1.id,
+            porra: porra.id,
+            value: '1-1'
+         }, {
+            user: user2.id,
+            porra: porra.id,
+            value: '2-1'
+         }]);
          yield porra.save();
-         porra = yield Porra.findOne({ where: { id: porra.id }}).populate('participantes');
+         porra = yield Porra.findOne({ where: { id: porra.id }}).populate('participaciones')
 
          console.log(user1)
          console.log(user2)

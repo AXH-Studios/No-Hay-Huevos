@@ -2,23 +2,27 @@ module.exports = {
    create,
    info,
    participar,
-   historico
+   historico,
+   resolver
 };
 
-var q = require('q')
+var q = require('q');
 
 function create(req, res) {
 
    q.spawn(function *() {
       try {
+         console.log(req.user)
          var porra = yield Porra.create({
             owner: req.user,
-            amount: req.body.amount || 99,
-            descripcion: req.body.descripcion || 'sin descripcion'
-         })
+            amount: req.body.amount || 1.0,
+            descripcion: req.body.descripcion || 'sin descripcion',
+            status: 'playing',
+            type: req.body.type,
+         });
 
          yield porra.save();
-         var porra = yield PorraService.participar(req.user, porra);
+         porra = yield PorraService.participar(req.user, porra, req.body.value);
          res.send(porra)
       } catch (err) {
          res.serverError(err)
@@ -30,7 +34,7 @@ function create(req, res) {
 
 function info(req, res) {
    q.spawn(function *() {
-      var porra = yield Porra.findOne({where: {id: req.param('porraId')}}).populate('participantes');
+      var porra = yield Porra.findOne({where: {id: req.param('porraId')}}).populate('participaciones');
       if (!porra) {
          res.notFound();
       }
@@ -43,7 +47,7 @@ function participar(req, res) {
    q.spawn(function *() {
       try {
          var porra = yield Porra.findOne({where: {id: req.param('porraId')}});
-         porra = yield PorraService.participar(req.user, porra);
+         porra = yield PorraService.participar(req.user, porra, req.body.value);
          res.send(porra)
       } catch (err) {
          res.serverError(err)
@@ -54,8 +58,39 @@ function participar(req, res) {
 function historico(req, res) {
    q.spawn(function *() {
 
-      var user = yield User.findOne({id: req.user.id}).populate('jugando');
+      var user = yield User.findOne({
+         or: [
+            {id: req.user.id},
+            {username: req.user.id}
+         ]
+      }).populate('participaciones');
+
+      function getPorra(porraId) {
+         return Porra.findOne({id: porraId});
+      }
+
+      var promises = [];
+      _.forEach(user.participaciones, (participacion) => {
+         promises.push(getPorra(participacion.porra).then(function (porra) {
+            participacion.porra = porra;
+            delete participacion.porra.participaciones;
+         }));
+      });
+
+      yield q.all(promises);
 
       res.send(user)
+   })
+}
+
+function resolver(req, res) {
+   q.spawn(function *() {
+
+      try {
+         var porra = yield PorraService.resolver(req.param('porraId'), req.param('winnerId'));
+         res.send(porra)
+      } catch (err) {
+         res.serverError(err)
+      }
    })
 }

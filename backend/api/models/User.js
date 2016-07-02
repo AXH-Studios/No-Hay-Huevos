@@ -8,9 +8,9 @@ module.exports = {
          type : 'float',
          required : true
       },
-      jugando: {
-         collection: 'Porra',
-         via: 'participantes'
+      participaciones: {
+         collection: 'Participacion',
+         via: 'user'
       }
    }
 }

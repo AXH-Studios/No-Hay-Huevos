@@ -7,14 +7,24 @@ module.exports = {
          type : 'float',
          required : true
       },
+      status: {
+         type : 'string',
+         required : true
+      },
+      type: {
+         type : 'string',
+         required : true
+      },
       descripcion: {
          type : 'string',
          required : true
       },
-      participantes: {
-         collection: 'User',
-         via: 'jugando',
-         dominant: true
+      participaciones: {
+         collection: 'Participacion',
+         via: 'porra'
+      },
+      winner : {
+         model: 'User'
       }
    }
 };

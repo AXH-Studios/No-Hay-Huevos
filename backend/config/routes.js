@@ -39,6 +39,7 @@ module.exports.routes = {
 
    'POST /api/porra':                       "PorraController.create",
    'GET  /api/porra/:porraId':              "PorraController.info",
+   'POST /api/porra/:porraId/resolve':      "PorraController.resolver",
    'GET  /api/user/:userId/porra/':         "PorraController.historico",
    'PUT  /api/user/:userId/porra/:porraId': "PorraController.participar"
 
