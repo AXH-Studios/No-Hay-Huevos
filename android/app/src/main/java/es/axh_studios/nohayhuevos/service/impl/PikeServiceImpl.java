@@ -35,7 +35,7 @@ public class PikeServiceImpl {
             usuario.setCartera(jsonLogin.optDouble("cartera"));
             usuario.setEmail(id);
 
-            Object o = jsonLogin.get("jugando");
+            Object o = jsonLogin.get("participaciones");
 
             JSONArray pikes = (JSONArray) o;
 
