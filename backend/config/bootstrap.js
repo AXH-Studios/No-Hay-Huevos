@@ -26,6 +26,21 @@ module.exports.bootstrap = function (cb) {
             cartera: 10.0
          })
 
+         yield User.create({
+            username: 'alfredo@mail.com',
+            cartera: 10.0
+         })
+
+         yield User.create({
+            username: 'alejandro@mail.com',
+            cartera: 10.0
+         })
+
+         yield User.create({
+            username: 'luis@mail.com',
+            cartera: 10.0
+         })
+
          var porra = yield Porra.create({
             owner: user1,
             amount: 2.0,

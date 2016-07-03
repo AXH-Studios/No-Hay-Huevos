@@ -7,6 +7,10 @@ var q = require('q');
 
 function participar(user, porra, value) {
 
+   if(porra.status === 'finished') {
+      throw new Error("Porra finalizada");
+   }
+   
    user.cartera -= porra.amount;
    porra.participaciones.add({
       user: user.id,
@@ -26,7 +30,13 @@ function resolver(porraId, winnerId) {
    console.log("AAAAAAAAAAAAa", porraId, winnerId);
 
    return Porra.findOne({id: porraId}).populate('participaciones').then(function (porra) {
-      var totalGana = (porra.participaciones.length * porra.amount) - 0.10;
+      var totalGana;
+      if(porra.amount) {
+         totalGana = (porra.participaciones.length * porra.amount) - 0.10;
+      } else {
+         totalGana = 0;
+      }
+
       return User.findOne({or: [
          { id: winnerId },
          { username: winnerId }
