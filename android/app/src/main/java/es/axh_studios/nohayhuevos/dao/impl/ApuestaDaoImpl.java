@@ -40,13 +40,13 @@ public class ApuestaDaoImpl {
         return response.body().string();
     }
 
-    public String createPike(String json) throws IOException {
-        String url = URL_BASE+"api/payment";
+    public String createPike(String json, String idUsuario) throws IOException {
+        String url = URL_BASE+"/api/porra/?userId="+idUsuario;
 
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder()
                 .url(url)
-                .put(body)
+                .post(body)
                 .build();
         Response response = client.newCall(request).execute();
         return response.body().string();

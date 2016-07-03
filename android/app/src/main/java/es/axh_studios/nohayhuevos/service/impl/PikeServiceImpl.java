@@ -124,6 +124,32 @@ public class PikeServiceImpl {
         return apuesta;
     }
 
+    public Integer crearApuesta(Apuesta ap, String valor, String id){
+
+        JSONObject json = new JSONObject();
+        try {
+            json.put("amount", ap.getCantidad());
+            json.put("descripcion",ap.getDescripcion());
+            json.put("value", valor);
+            json.put("type", "libre");
+        } catch (JSONException e) {
+        }
+
+        String jsonString = json.toString();
+
+        try {
+            String respuesta = apuestaDao.createPike(jsonString, id);
+            JSONObject jsonRespuesta = new JSONObject(respuesta);
+
+            Integer res = jsonRespuesta.getInt("id");
+            return res;
+
+        } catch (IOException | JSONException e) {
+        }
+
+        return null;
+    }
+
     public String generarUrlCompartir(Integer id){
         return ApiUtils.URL_BASE + "algo" + id;
     }
