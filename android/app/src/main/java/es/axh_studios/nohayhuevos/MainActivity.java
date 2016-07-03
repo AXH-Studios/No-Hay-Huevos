@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             Intent i = new Intent();
             i.setClass(this, MainActivity.class);
+            finish();
             startActivity(i);
 
             return true;
