@@ -32,7 +32,7 @@ function resolver(porraId, winnerId) {
    return Porra.findOne({id: porraId}).populate('participaciones').then(function (porra) {
       var totalGana;
       if(porra.amount) {
-         totalGana = (porra.participaciones.length * porra.amount) - 0.10;
+         totalGana = (porra.participaciones.length * porra.amount) - 0.15;
       } else {
          totalGana = 0;
       }

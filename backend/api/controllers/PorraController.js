@@ -3,7 +3,8 @@ module.exports = {
    info,
    participar,
    historico,
-   resolver
+   resolver,
+   userInfo
 };
 
 var q = require('q');
@@ -93,4 +94,8 @@ function resolver(req, res) {
          res.serverError(err)
       }
    })
+}
+
+function userInfo(req, res) {
+   res.send(req.user)
 }
