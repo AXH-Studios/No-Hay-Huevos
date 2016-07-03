@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import es.axh_studios.nohayhuevos.adapter.ApuestaRecyclerViewAdapter;
 import es.axh_studios.nohayhuevos.domain.Apuesta;
 
 /**
@@ -74,7 +75,7 @@ public class ApuestaFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-            ApuestaRecyclerViewAdapter adapter = new ApuestaRecyclerViewAdapter(apuestas, mListener, getContext());
+            ApuestaRecyclerViewAdapter adapter = new ApuestaRecyclerViewAdapter(apuestas, getContext());
             recyclerView.setAdapter(adapter);
         }
         return view;

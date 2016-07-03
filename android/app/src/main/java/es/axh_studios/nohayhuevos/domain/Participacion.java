@@ -7,6 +7,7 @@ public class Participacion {
 
     private Integer id;
     private Integer user;
+    private String nombreUsuario;
     private Integer apuesta;
     private String valor;
 
@@ -40,5 +41,13 @@ public class Participacion {
 
     public void setValor(String valor) {
         this.valor = valor;
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 }

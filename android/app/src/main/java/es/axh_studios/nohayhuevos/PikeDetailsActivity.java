@@ -1,34 +1,46 @@
 package es.axh_studios.nohayhuevos;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import es.axh_studios.nohayhuevos.adapter.ParticipantesRecyclerViewAdapter;
 import es.axh_studios.nohayhuevos.application.PikeApplication;
 import es.axh_studios.nohayhuevos.domain.Apuesta;
 import es.axh_studios.nohayhuevos.domain.Participacion;
 import es.axh_studios.nohayhuevos.domain.Usuario;
 import es.axh_studios.nohayhuevos.service.impl.PikeServiceImpl;
+import es.axh_studios.nohayhuevos.service.impl.UserServiceImpl;
 
 public class PikeDetailsActivity extends AppCompatActivity {
+
+    private final Context context = this;
 
     private Apuesta apuesta;
 
     private TextView amountTextView;
-    private TextView descripcionTextView;
-    private ListView participantesListView;
+    private RecyclerView participantesRecyclerView;
     private Button participarButton;
+    private Integer idPike;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +74,7 @@ public class PikeDetailsActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        Integer idPike = null;
+        idPike = null;
 
         try{
             Uri data = intent.getData();
@@ -100,49 +112,104 @@ public class PikeDetailsActivity extends AppCompatActivity {
         }
 
         amountTextView = (TextView) findViewById(R.id.amount);
-        descripcionTextView = (TextView) findViewById(R.id.descripcion);
-        participantesListView = (ListView) findViewById(R.id.participantes);
+        participantesRecyclerView = (RecyclerView) findViewById(R.id.participantes);
         participarButton = (Button) findViewById(R.id.participar);
 
         List<Participacion> participaciones = apuesta.getParticipaciones();
         //List<Participacion> participacionesString = new ArrayList<>();
 
-        boolean botonVisible = false;
+        boolean botonCerrarApuestaVisible = false;
+
+        Map<Integer, String> mapaUsuarios = new HashMap<>();
+
+        UserServiceImpl userService = new UserServiceImpl();
+
+
         if(participaciones != null){
             for(Participacion p : participaciones){
                 // TODO Get usuario conectado y comprobar con usuario participante
+                // Aprovechamos para anadir nombre de usuario
+
+                Integer id = p.getUser();
+                if(mapaUsuarios.containsKey(id)){
+                   p.setNombreUsuario(mapaUsuarios.get(id));
+                } else {
+                    Usuario u = userService.getUser(id.toString());
+
+                    p.setNombreUsuario(u.getNombre());
+                    mapaUsuarios.put(id, u.getNombre());
+                }
             }
         }
 
-        if(!botonVisible){
-            participarButton.setVisibility(View.GONE);
-        }
 
-        amountTextView.setText(apuesta.getCantidad().toString());
-        descripcionTextView.setText(apuesta.getDescripcion());
+        setTitle(apuesta.getDescripcion());
+        amountTextView.setText(apuesta.getCantidad() + " €");
 
-        // TODO Adapter listview
-        String[] values = new String[] {
-                "Android List View",
-                "Adapter implementation",
-                "Simple List View In Android",
-                "Create List View Android",
-                "Android Example",
-                "List View Source Code",
-                "List View Array Adapter",
-                "Adapter implementation",
-                "Simple List View In Android"
-        };
-        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        participantesRecyclerView.setHasFixedSize(true);
 
-        participantesListView.setAdapter(itemsAdapter);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        participantesRecyclerView.setLayoutManager(mLayoutManager);
+
+        ParticipantesRecyclerViewAdapter adapter = new ParticipantesRecyclerViewAdapter(participaciones, this);
+        participantesRecyclerView.setAdapter(adapter);
 
         participarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                // get prompts.xml view
+                LayoutInflater li = LayoutInflater.from(context);
+                View promptsView = li.inflate(R.layout.activity_wizard_step3, null);
 
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        context);
+
+                // set prompts.xml to alertdialog builder
+                alertDialogBuilder.setView(promptsView);
+
+                final EditText userInput = (EditText) promptsView
+                        .findViewById(R.id.apuesta);
+
+                final RelativeLayout relative = (RelativeLayout) promptsView
+                        .findViewById(R.id.relative);
+                relative.setVisibility(View.GONE);
+
+
+                // set dialog message
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                        PikeServiceImpl pikeService = new PikeServiceImpl(usuarioConectado);
+
+                                        pikeService.participarApuesta(idPike, userInput.getText().toString());
+
+                                        Intent i = new Intent();
+                                        i.setClass(context, PikeDetailsActivity.class);
+                                        i.putExtra("idPike", idPike);
+
+                                        Toast.makeText(context,"Gracias por pikarte!",
+                                                Toast.LENGTH_LONG).show();
+
+                                        finish();
+                                        context.startActivity(i);
+                                    }
+                                })
+                        .setNegativeButton("Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
 
             }
         });

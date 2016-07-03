@@ -73,4 +73,17 @@ public class Apuesta implements Serializable {
     public void setParticipaciones(List<Participacion> participaciones) {
         this.participaciones = participaciones;
     }
+
+    public boolean equals(Object obj) {
+        if (obj instanceof Apuesta) {
+            Apuesta otraApuesta = (Apuesta) obj;
+            if (this.id.equals(otraApuesta.id)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }

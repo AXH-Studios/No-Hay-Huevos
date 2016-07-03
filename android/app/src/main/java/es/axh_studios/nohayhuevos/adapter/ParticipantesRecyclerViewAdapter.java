@@ -1,7 +1,6 @@
-package es.axh_studios.nohayhuevos;
+package es.axh_studios.nohayhuevos.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,21 +11,20 @@ import java.util.List;
 
 import es.axh_studios.nohayhuevos.ApuestaFragment.OnListFragmentInteractionListener;
 import es.axh_studios.nohayhuevos.domain.Apuesta;
+import es.axh_studios.nohayhuevos.domain.Participacion;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link es.axh_studios.nohayhuevos.domain.Apuesta} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link Apuesta} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class ApuestaRecyclerViewAdapter extends RecyclerView.Adapter<ApuestaRecyclerViewAdapter.ViewHolder> {
+public class ParticipantesRecyclerViewAdapter extends RecyclerView.Adapter<ParticipantesRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Apuesta> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final List<Participacion> mValues;
     private final Context context;
 
-    public ApuestaRecyclerViewAdapter(List<Apuesta> items, OnListFragmentInteractionListener listener, Context c) {
+    public ParticipantesRecyclerViewAdapter(List<Participacion> items, Context c) {
         mValues = items;
-        mListener = listener;
         context = c;
     }
 
@@ -40,19 +38,8 @@ public class ApuestaRecyclerViewAdapter extends RecyclerView.Adapter<ApuestaRecy
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getDescripcion());
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Integer id = holder.getMITem().getId();
-
-                Intent i = new Intent();
-                i.setClass(context, PikeDetailsActivity.class);
-                i.putExtra("idPike", id);
-                context.startActivity(i);
-            }
-        });
+        holder.textoPrincipal.setText(mValues.get(position).getValor());
+        holder.comentario.setText(mValues.get(position).getNombreUsuario());
     }
 
     @Override
@@ -62,22 +49,22 @@ public class ApuestaRecyclerViewAdapter extends RecyclerView.Adapter<ApuestaRecy
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public Apuesta mItem;
+        public final TextView textoPrincipal;
+        public final TextView comentario;
+        public Participacion mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(android.R.id.text1);
-        }
+            textoPrincipal = (TextView) view.findViewById(android.R.id.text1);
+            comentario = (TextView) view.findViewById(android.R.id.text2);
 
-        public Apuesta getMITem(){
-            return mItem;
+
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mIdView.getText() + "'";
+            return super.toString() + " '" + textoPrincipal.getText() + "'";
         }
     }
 }

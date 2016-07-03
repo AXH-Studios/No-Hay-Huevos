@@ -3,9 +3,6 @@
     package="es.axh_studios.nohayhuevos">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -36,7 +33,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PikeDetailsActivity"
-            android:label="@string/title_activity_pike_details"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <data android:scheme="http" android:host="pike.xyz" />

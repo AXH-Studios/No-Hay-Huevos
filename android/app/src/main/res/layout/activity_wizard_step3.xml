@@ -49,6 +49,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="269dp"
+            android:id="@+id/relative"
             android:gravity="center">
 
             <ImageButton
