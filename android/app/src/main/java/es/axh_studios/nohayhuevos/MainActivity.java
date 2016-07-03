@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     return "Creadas";
                 case 1:
-                    return "Todas";
+                    return "Activas";
                 case 2:
                     return "Historial";
             }

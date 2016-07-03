@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import es.axh_studios.nohayhuevos.application.PikeApplication;
 import es.axh_studios.nohayhuevos.domain.Apuesta;
 import es.axh_studios.nohayhuevos.domain.Participacion;
@@ -62,15 +64,18 @@ public class PikeDetailsActivity extends AppCompatActivity {
 
         try{
             Uri data = intent.getData();
+            String param = data.getQueryParameter("id");
+            idPike = new Integer(param); // "1234"
 
             // TODO Get intent filter
         }catch (Exception e){
 
         }
-
-        try{
-            idPike = intent.getExtras().getInt("idPike");
-        } catch (Exception e){}
+        if(idPike == null){
+            try{
+                idPike = intent.getExtras().getInt("idPike");
+            } catch (Exception e){}
+        }
 
         if(idPike != null){
             PikeServiceImpl pikeService = new PikeServiceImpl(usuarioConectado);
@@ -82,7 +87,13 @@ public class PikeDetailsActivity extends AppCompatActivity {
 
         if(apuesta == null){
             Intent i = new Intent();
-            i.setClass(this, MainActivity.class);
+
+            if(usuarioConectado == null){
+                i.setClass(this, LoginActivity.class);
+            } else {
+                i.setClass(this, MainActivity.class);
+            }
+            finish();
             startActivity(i);
         }
 
@@ -91,9 +102,13 @@ public class PikeDetailsActivity extends AppCompatActivity {
         participantesListView = (ListView) findViewById(R.id.participantes);
         participarButton = (Button) findViewById(R.id.participar);
 
+        List<Participacion> participaciones = apuesta.getParticipaciones();
+
         boolean botonVisible = false;
-        for(Participacion p : apuesta.getParticipaciones()){
-            // TODO Get usuario conectado y comprobar con usuario participante
+        if(participaciones != null){
+            for(Participacion p : participaciones){
+                // TODO Get usuario conectado y comprobar con usuario participante
+            }
         }
 
         if(!botonVisible){

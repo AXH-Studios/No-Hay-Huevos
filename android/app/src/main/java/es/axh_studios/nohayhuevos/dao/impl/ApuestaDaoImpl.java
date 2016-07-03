@@ -30,7 +30,10 @@ public class ApuestaDaoImpl {
     }
 
     public String findPike(Integer id, String user) throws IOException {
-        String url = URL_BASE+"/api/porra/"+ id +"?user=" + user;
+        String url = URL_BASE+"/api/porra/"+ id;
+        if(user != null){
+            url += "?user=" + user;
+        }
 
         Request request = new Request.Builder()
                 .url(url)

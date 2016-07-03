@@ -73,24 +73,12 @@ public class ApuestaFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            // TODO
-            recyclerView.setAdapter(new ApuestaRecyclerViewAdapter(apuestas, mListener));
+
+            ApuestaRecyclerViewAdapter adapter = new ApuestaRecyclerViewAdapter(apuestas, mListener, getContext());
+            recyclerView.setAdapter(adapter);
         }
         return view;
     }
-
-/*
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
-    }
-    */
 
     @Override
     public void onDetach() {

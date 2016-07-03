@@ -1,5 +1,7 @@
 package es.axh_studios.nohayhuevos.service.impl;
 
+import android.os.StrictMode;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,6 +27,9 @@ public class PikeServiceImpl {
     public PikeServiceImpl(Usuario u) {
         apuestaDao = new ApuestaDaoImpl();
         usuarioConectado = u;
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
     }
 
     public Usuario login() {
@@ -83,7 +88,10 @@ public class PikeServiceImpl {
 
     public Apuesta findPike(Integer id){
         Apuesta apuesta = new Apuesta();
-        String user = usuarioConectado.getEmail();
+        String user = null;
+        if(usuarioConectado != null){
+            user = usuarioConectado.getEmail();
+        }
 
         try {
         String apuestaString = apuestaDao.findPike(id, user);
@@ -156,7 +164,7 @@ public class PikeServiceImpl {
     }
 
     public String generarUrlCompartir(Integer id){
-        return ApiUtils.URL_BASE + "algo" + id;
+        return ApiUtils.URL_BASE+"/ver/" + id;
     }
 
     public Integer participarApuesta(Integer idApuesta, String comentario){

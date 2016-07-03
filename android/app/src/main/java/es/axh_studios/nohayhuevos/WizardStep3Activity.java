@@ -8,22 +8,26 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import es.axh_studios.nohayhuevos.application.PikeApplication;
+import es.axh_studios.nohayhuevos.domain.Apuesta;
 import es.axh_studios.nohayhuevos.domain.Usuario;
+import es.axh_studios.nohayhuevos.service.impl.PikeServiceImpl;
 
-public class WizardStep2Activity extends AppCompatActivity {
+public class WizardStep3Activity extends AppCompatActivity {
 
-    private EditText amountEditText;
+    private EditText apuestaEditText;
     private ImageButton generarPike;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wizard_step2);
+        setContentView(R.layout.activity_wizard_step3);
 
         Intent i = getIntent();
         final String descripcion = i.getExtras().getString("descripcion");
+        final Double cantidad = i.getExtras().getDouble("cantidad");
 
-        amountEditText = (EditText) findViewById(R.id.cantidad);
+
+        apuestaEditText = (EditText) findViewById(R.id.apuesta);
         generarPike = (ImageButton) findViewById(R.id.pikate);
 
         PikeApplication application = (PikeApplication) getApplication();
@@ -32,24 +36,29 @@ public class WizardStep2Activity extends AppCompatActivity {
         generarPike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Double cantidad = null;
+                String apuesta = apuestaEditText.getText().toString();
 
-                try{
-                    cantidad = new Double(amountEditText.getText().toString());
-                } catch (Exception e){
 
+                if(apuesta == null){
+                    apuestaEditText.setError("La apuesta no puede estar vacía");
+                    return;
                 }
 
-                if(cantidad == null){
-                    amountEditText.setError("La cantidad no puede estar vacía");
+                PikeServiceImpl pikeService = new PikeServiceImpl(usuarioConectado);
+
+                Apuesta ap = new Apuesta();
+                ap.setDescripcion(descripcion);
+                ap.setCantidad(cantidad);
+
+                Integer pike = pikeService.crearApuesta(ap, apuesta);
+
+                if(pike == null){
                     return;
                 }
 
                 Intent i = new Intent();
-                i.putExtra("descripcion", descripcion);
-                i.putExtra("cantidad", cantidad);
-
-                i.setClass(WizardStep2Activity.this, WizardStep3Activity.class);
+                i.setClass(WizardStep3Activity.this, PikeDetailsActivity.class);
+                i.putExtra("idPike", pike);
                 startActivity(i);
 
             }
