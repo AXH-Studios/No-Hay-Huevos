@@ -33,11 +33,16 @@ public class PikeDetailsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        PikeApplication application = (PikeApplication) getApplication();
+        final Usuario usuarioConectado = application.getUsuarioConectado();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PikeServiceImpl pikeService = new PikeServiceImpl();
+
+
+                PikeServiceImpl pikeService = new PikeServiceImpl(usuarioConectado);
 
                 String url = pikeService.generarUrlCompartir(apuesta.getId());
 
@@ -68,12 +73,9 @@ public class PikeDetailsActivity extends AppCompatActivity {
         } catch (Exception e){}
 
         if(idPike != null){
-            PikeServiceImpl pikeService = new PikeServiceImpl();
+            PikeServiceImpl pikeService = new PikeServiceImpl(usuarioConectado);
 
-            PikeApplication application = (PikeApplication) getApplication();
-            Usuario usuario = application.getUsuarioConectado();
-
-            apuesta = pikeService.findPike(idPike, usuario.getEmail());
+            apuesta = pikeService.findPike(idPike);
         }
 
 

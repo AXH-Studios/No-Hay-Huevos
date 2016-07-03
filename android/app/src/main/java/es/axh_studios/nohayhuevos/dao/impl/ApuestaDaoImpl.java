@@ -52,4 +52,27 @@ public class ApuestaDaoImpl {
         return response.body().string();
     }
 
+    public String resolverPike(Integer idApuesta, String usuario, String ganador) throws IOException {
+        String url = URL_BASE+"/api/porra/"+idApuesta+"/resolve?userId="+usuario+"&winnerId="+ganador;
+
+        RequestBody body = RequestBody.create(JSON, "");
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
+
+    public String participarPike(String jsonString, Integer idApuesta, String idUsuario) throws IOException {
+        String url = URL_BASE+"/api/user/"+idUsuario+"/porra/"+idApuesta;
+
+        RequestBody body = RequestBody.create(JSON, jsonString);
+        Request request = new Request.Builder()
+                .url(url)
+                .put(body)
+                .build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
 }

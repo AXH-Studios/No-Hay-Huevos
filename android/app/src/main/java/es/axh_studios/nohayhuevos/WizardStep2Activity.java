@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import es.axh_studios.nohayhuevos.application.PikeApplication;
 import es.axh_studios.nohayhuevos.domain.Apuesta;
+import es.axh_studios.nohayhuevos.domain.Usuario;
 import es.axh_studios.nohayhuevos.service.impl.PikeServiceImpl;
 
 public class WizardStep2Activity extends AppCompatActivity {
@@ -31,6 +32,9 @@ public class WizardStep2Activity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        PikeApplication application = (PikeApplication) getApplication();
+        final Usuario usuarioConectado = application.getUsuarioConectado();
+
         generarPike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,16 +51,13 @@ public class WizardStep2Activity extends AppCompatActivity {
                     return;
                 }
 
-                PikeServiceImpl pikeService = new PikeServiceImpl();
-
-                PikeApplication application = (PikeApplication) getApplication();
-                String id = application.getUsuarioConectado().getEmail();
+                PikeServiceImpl pikeService = new PikeServiceImpl(usuarioConectado);
 
                 Apuesta ap = new Apuesta();
                 ap.setDescripcion(descripcion);
                 ap.setCantidad(cantidad);
 
-                Integer pike = pikeService.crearApuesta(ap, "test", id);
+                Integer pike = pikeService.crearApuesta(ap, "test");
 
                 if(pike == null){
                     return;
@@ -66,9 +67,6 @@ public class WizardStep2Activity extends AppCompatActivity {
                 i.setClass(WizardStep2Activity.this, PikeDetailsActivity.class);
                 i.putExtra("idPike", pike);
                 startActivity(i);
-
-                // TODO Generar pike
-
 
             }
         });

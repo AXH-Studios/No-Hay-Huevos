@@ -20,14 +20,17 @@ import es.axh_studios.nohayhuevos.utils.ApiUtils;
 public class PikeServiceImpl {
 
     private ApuestaDaoImpl apuestaDao;
+    private Usuario usuarioConectado;
 
-    public PikeServiceImpl() {
+    public PikeServiceImpl(Usuario u) {
         apuestaDao = new ApuestaDaoImpl();
+        usuarioConectado = u;
     }
 
-    public Usuario login(String id) {
+    public Usuario login() {
         Usuario usuario = new Usuario();
 
+        String id = usuarioConectado.getEmail();
         try {
             String stringLogin = apuestaDao.listPikes(id);
             JSONObject jsonLogin = new JSONObject(stringLogin);
@@ -78,8 +81,9 @@ public class PikeServiceImpl {
         return usuario;
     }
 
-    public Apuesta findPike(Integer id, String user){
+    public Apuesta findPike(Integer id){
         Apuesta apuesta = new Apuesta();
+        String user = usuarioConectado.getEmail();
 
         try {
         String apuestaString = apuestaDao.findPike(id, user);
@@ -124,7 +128,8 @@ public class PikeServiceImpl {
         return apuesta;
     }
 
-    public Integer crearApuesta(Apuesta ap, String valor, String id){
+    public Integer crearApuesta(Apuesta ap, String valor){
+        String id = usuarioConectado.getEmail();
 
         JSONObject json = new JSONObject();
         try {
@@ -152,5 +157,45 @@ public class PikeServiceImpl {
 
     public String generarUrlCompartir(Integer id){
         return ApiUtils.URL_BASE + "algo" + id;
+    }
+
+    public Integer participarApuesta(Integer idApuesta, String comentario){
+        String id = usuarioConectado.getEmail();
+
+        JSONObject json = new JSONObject();
+        try {
+            json.put("value", comentario);
+        } catch (JSONException e) {
+        }
+
+        String jsonString = json.toString();
+        String idUsuario = usuarioConectado.getEmail();
+
+        try {
+            String respuesta = apuestaDao.participarPike(jsonString, idApuesta, idUsuario);
+            JSONObject jsonRespuesta = new JSONObject(respuesta);
+
+            Integer res = jsonRespuesta.getInt("id");
+            return res;
+
+        } catch (IOException | JSONException e) {
+        }
+
+        return null;
+    }
+
+    public Integer resolverApuesta(Integer idApuesta, String ganador){
+
+        try {
+            String respuesta = apuestaDao.resolverPike(idApuesta, usuarioConectado.getEmail(), ganador);
+            JSONObject jsonRespuesta = new JSONObject(respuesta);
+
+            Integer res = jsonRespuesta.getInt("id");
+            return res;
+
+        } catch (IOException | JSONException e) {
+        }
+
+        return null;
     }
 }
