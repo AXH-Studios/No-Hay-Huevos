@@ -7,10 +7,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.axh_studios.nohayhuevos.application.PikeApplication;
@@ -103,6 +105,7 @@ public class PikeDetailsActivity extends AppCompatActivity {
         participarButton = (Button) findViewById(R.id.participar);
 
         List<Participacion> participaciones = apuesta.getParticipaciones();
+        //List<Participacion> participacionesString = new ArrayList<>();
 
         boolean botonVisible = false;
         if(participaciones != null){
@@ -119,7 +122,21 @@ public class PikeDetailsActivity extends AppCompatActivity {
         descripcionTextView.setText(apuesta.getDescripcion());
 
         // TODO Adapter listview
+        String[] values = new String[] {
+                "Android List View",
+                "Adapter implementation",
+                "Simple List View In Android",
+                "Create List View Android",
+                "Android Example",
+                "List View Source Code",
+                "List View Array Adapter",
+                "Adapter implementation",
+                "Simple List View In Android"
+        };
+        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, values);
 
+        participantesListView.setAdapter(itemsAdapter);
 
         participarButton.setOnClickListener(new View.OnClickListener() {
             @Override
