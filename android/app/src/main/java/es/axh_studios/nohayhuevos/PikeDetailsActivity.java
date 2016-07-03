@@ -66,14 +66,14 @@ public class PikeDetailsActivity extends AppCompatActivity {
 
         try{
             Uri data = intent.getData();
-            String param = data.getQueryParameter("id");
-            idPike = new Integer(param); // "1234"
+            List<String> params = data.getPathSegments();
+            idPike = new Integer(params.get(1));
 
             // TODO Get intent filter
         }catch (Exception e){
 
         }
-        if(idPike == null){
+        if(idPike == null || idPike.equals(0)){
             try{
                 idPike = intent.getExtras().getInt("idPike");
             } catch (Exception e){}
