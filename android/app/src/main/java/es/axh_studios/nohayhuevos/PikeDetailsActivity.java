@@ -13,7 +13,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -119,17 +118,16 @@ public class PikeDetailsActivity extends AppCompatActivity {
         List<Participacion> participaciones = apuesta.getParticipaciones();
         //List<Participacion> participacionesString = new ArrayList<>();
 
-        boolean botonCerrarApuestaVisible = false;
 
         Map<Integer, String> mapaUsuarios = new HashMap<>();
 
         UserServiceImpl userService = new UserServiceImpl();
 
+        boolean botonCerrarApuestaVisible = apuesta.getIdOwner().equals(usuarioConectado.getId());
 
         if(participaciones != null){
             for(Participacion p : participaciones){
-                // TODO Get usuario conectado y comprobar con usuario participante
-                // Aprovechamos para anadir nombre de usuario
+                // Add nombres de usuario
 
                 Integer id = p.getUser();
                 if(mapaUsuarios.containsKey(id)){
@@ -152,7 +150,12 @@ public class PikeDetailsActivity extends AppCompatActivity {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         participantesRecyclerView.setLayoutManager(mLayoutManager);
 
-        ParticipantesRecyclerViewAdapter adapter = new ParticipantesRecyclerViewAdapter(participaciones, this);
+        ParticipantesRecyclerViewAdapter adapter;
+        if(botonCerrarApuestaVisible){
+            adapter = new ParticipantesRecyclerViewAdapter(participaciones, this, usuarioConectado, idPike);
+        } else {
+            adapter = new ParticipantesRecyclerViewAdapter(participaciones, this, null, null);
+        }
         participantesRecyclerView.setAdapter(adapter);
 
         participarButton.setOnClickListener(new View.OnClickListener() {

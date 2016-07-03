@@ -1,6 +1,10 @@
 package es.axh_studios.nohayhuevos.adapter;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +14,11 @@ import android.widget.TextView;
 import java.util.List;
 
 import es.axh_studios.nohayhuevos.ApuestaFragment.OnListFragmentInteractionListener;
+import es.axh_studios.nohayhuevos.PikeDetailsActivity;
 import es.axh_studios.nohayhuevos.domain.Apuesta;
 import es.axh_studios.nohayhuevos.domain.Participacion;
+import es.axh_studios.nohayhuevos.domain.Usuario;
+import es.axh_studios.nohayhuevos.service.impl.PikeServiceImpl;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Apuesta} and makes a call to the
@@ -21,10 +28,14 @@ import es.axh_studios.nohayhuevos.domain.Participacion;
 public class ParticipantesRecyclerViewAdapter extends RecyclerView.Adapter<ParticipantesRecyclerViewAdapter.ViewHolder> {
 
     private final List<Participacion> mValues;
+    private final Usuario usuarioConectado;
     private final Context context;
+    private Integer idPike;
 
-    public ParticipantesRecyclerViewAdapter(List<Participacion> items, Context c) {
+    public ParticipantesRecyclerViewAdapter(List<Participacion> items, Context c, Usuario usuario, Integer idPike) {
         mValues = items;
+        usuarioConectado = usuario;
+        this.idPike = idPike;
         context = c;
     }
 
@@ -40,6 +51,55 @@ public class ParticipantesRecyclerViewAdapter extends RecyclerView.Adapter<Parti
         holder.mItem = mValues.get(position);
         holder.textoPrincipal.setText(mValues.get(position).getValor());
         holder.comentario.setText(mValues.get(position).getNombreUsuario());
+
+        if(usuarioConectado != null && idPike != null){
+            holder.mView.setOnLongClickListener(new View.OnLongClickListener(){
+
+                @Override
+                public boolean onLongClick(View v) {
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                            context);
+
+                    // set title
+                    alertDialogBuilder.setTitle("Finalizar apuesta");
+
+                    // set dialog message
+                    alertDialogBuilder
+                            .setMessage("Pulsa si para finalizar apuesta")
+                            .setCancelable(false)
+                            .setPositiveButton("Si",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Participacion participacion = holder.mItem;
+
+                                    PikeServiceImpl pikeService = new PikeServiceImpl(usuarioConectado);
+
+                                    pikeService.resolverApuesta(idPike, participacion.getEmail());
+
+                                    Intent i = new Intent();
+                                    i.setClass(context, PikeDetailsActivity.class);
+                                    i.putExtra("idPike", idPike);
+
+                                    ((Activity) context).finish();
+                                    context.startActivity(i);
+                                }
+                            })
+                            .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+
+                    // show it
+                    alertDialog.show();
+
+                    return true;
+                }
+            });
+        }
     }
 
     @Override
@@ -58,13 +118,12 @@ public class ParticipantesRecyclerViewAdapter extends RecyclerView.Adapter<Parti
             mView = view;
             textoPrincipal = (TextView) view.findViewById(android.R.id.text1);
             comentario = (TextView) view.findViewById(android.R.id.text2);
-
-
         }
 
         @Override
         public String toString() {
             return super.toString() + " '" + textoPrincipal.getText() + "'";
         }
+
     }
 }

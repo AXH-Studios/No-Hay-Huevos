@@ -8,6 +8,7 @@ public class Participacion {
     private Integer id;
     private Integer user;
     private String nombreUsuario;
+    private String email;
     private Integer apuesta;
     private String valor;
 
@@ -49,5 +50,13 @@ public class Participacion {
 
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
