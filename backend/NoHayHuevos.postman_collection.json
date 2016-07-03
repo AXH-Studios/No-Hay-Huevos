@@ -10,7 +10,7 @@
 		{
 			"name": "get porra",
 			"request": {
-				"url": "localhost:1337/api/porra/90",
+				"url": "178.62.87.222:1337/api/porra/90",
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -24,7 +24,7 @@
 		{
 			"name": "save porra",
 			"request": {
-				"url": "localhost:1337/api/porra/?userId=pepe@mail.com",
+				"url": "178.62.87.222:1337/api/porra/?userId=pepe@mail.com",
 				"method": "POST",
 				"header": [
 					{
@@ -44,7 +44,7 @@
 		{
 			"name": "participar porra",
 			"request": {
-				"url": "localhost:1337/api/user/juan@mail.com/porra/90",
+				"url": "178.62.87.222:1337/api/user/juan@mail.com/porra/90",
 				"method": "PUT",
 				"header": [
 					{
@@ -64,7 +64,7 @@
 		{
 			"name": "historico porras ",
 			"request": {
-				"url": "localhost:1337/api/user/pepe@mail.com/porra/",
+				"url": "178.62.87.222:1337/api/user/pepe@mail.com/porra/",
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -78,7 +78,7 @@
 		{
 			"name": "resolve porra",
 			"request": {
-				"url": "localhost:1337/api/porra/90/resolve?userId=juan@mail.com&winnerId=pepe@mail.com",
+				"url": "178.62.87.222:1337/api/porra/90/resolve?userId=juan@mail.com&winnerId=pepe@mail.com",
 				"method": "POST",
 				"header": [
 					{
@@ -90,6 +90,20 @@
 				"body": {
 					"mode": "raw",
 					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get user info",
+			"request": {
+				"url": "178.62.87.222:1337/api/user/juan@mail.com/",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
 				},
 				"description": ""
 			},
