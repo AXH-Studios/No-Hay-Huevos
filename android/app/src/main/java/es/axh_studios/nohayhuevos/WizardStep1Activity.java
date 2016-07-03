@@ -6,11 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 public class WizardStep1Activity extends AppCompatActivity {
 
     private EditText descripcionEditText;
-    private Button siguienteButton;
+    private ImageButton siguienteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +19,7 @@ public class WizardStep1Activity extends AppCompatActivity {
         setContentView(R.layout.activity_wizard_step1);
 
         descripcionEditText = (EditText) findViewById(R.id.descripcion);
-        siguienteButton = (Button) findViewById(R.id.siguiente_paso_1);
+        siguienteButton = (ImageButton) findViewById(R.id.siguiente_paso_1);
 
         siguienteButton.setOnClickListener(new View.OnClickListener() {
             @Override

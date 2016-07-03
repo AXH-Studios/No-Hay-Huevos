@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import es.axh_studios.nohayhuevos.application.PikeApplication;
 import es.axh_studios.nohayhuevos.domain.Apuesta;
@@ -16,7 +17,7 @@ import es.axh_studios.nohayhuevos.service.impl.PikeServiceImpl;
 public class WizardStep2Activity extends AppCompatActivity {
 
     private EditText amountEditText;
-    private Button generarPike;
+    private ImageButton generarPike;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,7 @@ public class WizardStep2Activity extends AppCompatActivity {
         final String descripcion = i.getExtras().getString("descripcion");
 
         amountEditText = (EditText) findViewById(R.id.cantidad);
-        generarPike = (Button) findViewById(R.id.pikate);
+        generarPike = (ImageButton) findViewById(R.id.pikate);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
