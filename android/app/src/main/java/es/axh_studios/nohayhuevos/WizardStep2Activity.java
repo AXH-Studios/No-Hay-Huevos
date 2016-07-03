@@ -24,7 +24,7 @@ public class WizardStep2Activity extends AppCompatActivity {
         final String descripcion = i.getExtras().getString("descripcion");
 
         amountEditText = (EditText) findViewById(R.id.cantidad);
-        generarPike = (ImageButton) findViewById(R.id.pikate);
+        generarPike = (ImageButton) findViewById(R.id.siguiente_paso_2);
 
         PikeApplication application = (PikeApplication) getApplication();
         final Usuario usuarioConectado = application.getUsuarioConectado();
