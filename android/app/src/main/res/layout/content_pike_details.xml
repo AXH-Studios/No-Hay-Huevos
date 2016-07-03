@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
@@ -7,16 +7,18 @@
     android:weightSum="1"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="es.axh_studios.nohayhuevos.PikeDetailsActivity"
-    tools:showIn="@layout/activity_pike_details">
+    tools:showIn="@layout/activity_pike_details"
+    android:orientation="vertical">
 
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/info_general"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:weightSum="1">
+        android:layout_height="257dp"
+        android:weightSum="1"
+        android:orientation="vertical">
         <TextView
+            android:layout_weight="0.3"
             android:id="@+id/amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,33 +26,50 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_gravity="center"
-            android:layout_toEndOf="@+id/participar"
+            android:layout_toEndOf="@+id/descripcion"
             android:gravity="center"
             android:text="0 €"
             android:textSize="60dip"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/participar"
+        <TextView
+            android:layout_weight="0.7"
+            android:gravity="center"
+            android:textSize="30dip"
+            android:id="@+id/descripcion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:text="Descripción"
             android:layout_below="@+id/amount"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal" />
+
+        <ImageButton
+            android:id="@+id/participar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             android:text="Participar"
-            android:layout_alignParentEnd="true" />
+            android:src="@drawable/bulleye2"
+            android:background="@drawable/round_button"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
+
+    <!--<ListView-->
+        <!--android:id="@+id/participantes"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content">-->
+    <!--</ListView>-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/participantes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/info_general"
-        android:layout_alignParentStart="true">
-
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     </android.support.v7.widget.RecyclerView>
 
-
-</RelativeLayout>
+</LinearLayout>

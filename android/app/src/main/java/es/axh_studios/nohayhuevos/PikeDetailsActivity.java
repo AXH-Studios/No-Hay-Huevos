@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +40,7 @@ public class PikeDetailsActivity extends AppCompatActivity {
 
     private TextView amountTextView;
     private RecyclerView participantesRecyclerView;
-    private Button participarButton;
+    private ImageButton participarButton;
     private Integer idPike;
 
     @Override
@@ -113,7 +114,7 @@ public class PikeDetailsActivity extends AppCompatActivity {
 
         amountTextView = (TextView) findViewById(R.id.amount);
         participantesRecyclerView = (RecyclerView) findViewById(R.id.participantes);
-        participarButton = (Button) findViewById(R.id.participar);
+        participarButton = (ImageButton) findViewById(R.id.participar);
 
         List<Participacion> participaciones = apuesta.getParticipaciones();
         //List<Participacion> participacionesString = new ArrayList<>();
@@ -191,7 +192,7 @@ public class PikeDetailsActivity extends AppCompatActivity {
                                         i.setClass(context, PikeDetailsActivity.class);
                                         i.putExtra("idPike", idPike);
 
-                                        Toast.makeText(context,"Gracias por pikarte!",
+                                        Toast.makeText(context, "PIKADO!",
                                                 Toast.LENGTH_LONG).show();
 
                                         finish();
