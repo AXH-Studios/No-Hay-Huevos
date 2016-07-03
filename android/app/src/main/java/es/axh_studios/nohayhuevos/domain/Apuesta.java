@@ -13,6 +13,7 @@ public class Apuesta implements Serializable {
     private String descripcion;
     private Double cantidad;
     private Integer idOwner;
+    private Integer idWinner;
     private String estado;
     private String tipo;
     private List<Participacion> participaciones;
@@ -85,5 +86,13 @@ public class Apuesta implements Serializable {
         } else {
             return false;
         }
+    }
+
+    public Integer getIdWinner() {
+        return idWinner;
+    }
+
+    public void setIdWinner(Integer idWinner) {
+        this.idWinner = idWinner;
     }
 }

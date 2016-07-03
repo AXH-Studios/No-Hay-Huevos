@@ -65,6 +65,7 @@ public class PikeServiceImpl {
                     Apuesta apuesta = new Apuesta();
                     apuesta.setId(porra.optInt("id"));
                     apuesta.setIdOwner(porra.optInt("owner"));
+                    apuesta.setIdWinner(porra.optInt("winner"));
                     apuesta.setDescripcion(porra.optString("descripcion"));
                     apuesta.setCantidad(porra.optDouble("amount"));
                     apuesta.setEstado(porra.optString("status"));
@@ -99,6 +100,7 @@ public class PikeServiceImpl {
 
             apuesta.setId(apuestaJson.optInt("id"));
             apuesta.setIdOwner(apuestaJson.optInt("owner"));
+            apuesta.setIdWinner(apuestaJson.optInt("winner"));
             apuesta.setDescripcion(apuestaJson.optString("descripcion"));
             apuesta.setCantidad(apuestaJson.optDouble("amount"));
             apuesta.setEstado(apuestaJson.optString("status"));

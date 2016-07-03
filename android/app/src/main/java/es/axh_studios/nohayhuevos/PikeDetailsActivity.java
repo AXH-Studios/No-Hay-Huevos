@@ -150,12 +150,12 @@ public class PikeDetailsActivity extends AppCompatActivity {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         participantesRecyclerView.setLayoutManager(mLayoutManager);
 
-        ParticipantesRecyclerViewAdapter adapter;
-        if(botonCerrarApuestaVisible){
-            adapter = new ParticipantesRecyclerViewAdapter(participaciones, this, usuarioConectado, idPike);
-        } else {
-            adapter = new ParticipantesRecyclerViewAdapter(participaciones, this, null, null);
+        if(apuesta.getEstado().equals("finished")){
+            participarButton.setVisibility(View.GONE);
         }
+
+        ParticipantesRecyclerViewAdapter adapter;
+        adapter = new ParticipantesRecyclerViewAdapter(participaciones, this, usuarioConectado, apuesta, botonCerrarApuestaVisible);
         participantesRecyclerView.setAdapter(adapter);
 
         participarButton.setOnClickListener(new View.OnClickListener() {
