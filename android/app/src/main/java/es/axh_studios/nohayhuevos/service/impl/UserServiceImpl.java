@@ -32,9 +32,8 @@ public class UserServiceImpl {
             JSONObject jsonLogin = new JSONObject(stringLogin);
 
             usuario.setId(jsonLogin.optInt("id"));
-            usuario.setNombre(jsonLogin.optString("username"));
             usuario.setCartera(jsonLogin.optDouble("cartera"));
-            usuario.setEmail(jsonLogin.optString("email"));
+            usuario.setEmail(jsonLogin.optString("username"));
         } catch (IOException | JSONException e) {
             return null;
         }

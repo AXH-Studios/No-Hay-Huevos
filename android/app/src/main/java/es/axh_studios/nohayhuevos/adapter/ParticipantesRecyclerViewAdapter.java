@@ -20,6 +20,7 @@ import es.axh_studios.nohayhuevos.domain.Apuesta;
 import es.axh_studios.nohayhuevos.domain.Participacion;
 import es.axh_studios.nohayhuevos.domain.Usuario;
 import es.axh_studios.nohayhuevos.service.impl.PikeServiceImpl;
+import es.axh_studios.nohayhuevos.service.impl.UserServiceImpl;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Apuesta} and makes a call to the
@@ -84,8 +85,11 @@ public class ParticipantesRecyclerViewAdapter extends RecyclerView.Adapter<Parti
                                     Participacion participacion = holder.mItem;
 
                                     PikeServiceImpl pikeService = new PikeServiceImpl(usuarioConectado);
+                                    UserServiceImpl userService = new UserServiceImpl();
 
-                                    pikeService.resolverApuesta(pike.getId(), participacion.getEmail());
+                                    Usuario user = userService.getUser(participacion.getUser().toString());
+
+                                    pikeService.resolverApuesta(pike.getId(), user.getEmail());
 
                                     Intent i = new Intent();
                                     i.setClass(context, PikeDetailsActivity.class);

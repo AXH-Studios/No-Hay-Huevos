@@ -189,7 +189,8 @@ public class PikeDetailsActivity extends AppCompatActivity {
 
                                         PikeServiceImpl pikeService = new PikeServiceImpl(usuarioConectado);
 
-                                        pikeService.participarApuesta(idPike, userInput.getText().toString());
+                                        String usuario = userInput.getText().toString();
+                                        pikeService.participarApuesta(idPike, usuario);
 
                                         Intent i = new Intent();
                                         i.setClass(context, PikeDetailsActivity.class);
