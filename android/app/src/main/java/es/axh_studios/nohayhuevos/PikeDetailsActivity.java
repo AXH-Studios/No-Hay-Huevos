@@ -138,8 +138,8 @@ public class PikeDetailsActivity extends AppCompatActivity {
                 } else {
                     Usuario u = userService.getUser(id.toString());
 
-                    p.setNombreUsuario(u.getNombre());
-                    mapaUsuarios.put(id, u.getNombre());
+                    p.setNombreUsuario(u.getEmail());
+                    mapaUsuarios.put(id, u.getEmail());
                 }
             }
         }
