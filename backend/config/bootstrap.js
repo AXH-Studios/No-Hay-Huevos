@@ -41,25 +41,25 @@ module.exports.bootstrap = function (cb) {
             cartera: 10.0
          })
 
-         var porra = yield Porra.create({
-            owner: user1,
-            amount: 2.0,
-            status: 'playing',
-            type: 'libre',
-            descripcion: "Porra por defecto"
-         })
+         // var porra = yield Porra.create({
+         //    owner: user1,
+         //    amount: 2.0,
+         //    status: 'playing',
+         //    type: 'libre',
+         //    descripcion: "Porra por defecto"
+         // })
 
-         porra.participaciones.add([{
-            user: user1.id,
-            porra: porra.id,
-            value: '1-1'
-         }, {
-            user: user2.id,
-            porra: porra.id,
-            value: '2-1'
-         }]);
-         yield porra.save();
-         porra = yield Porra.findOne({ where: { id: porra.id }}).populate('participaciones')
+         // porra.participaciones.add([{
+         //    user: user1.id,
+         //    porra: porra.id,
+         //    value: '1-1'
+         // }, {
+         //    user: user2.id,
+         //    porra: porra.id,
+         //    value: '2-1'
+         // }]);
+         // yield porra.save();
+         // porra = yield Porra.findOne({ where: { id: porra.id }}).populate('participaciones')
 
          console.log(user1)
          console.log(user2)
