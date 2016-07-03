@@ -308,8 +308,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            PikeServiceImpl pikeService = new PikeServiceImpl();
-            Usuario usuario = pikeService.login(mEmail);
+            Usuario u = new Usuario();
+            u.setEmail(mEmail);
+
+            PikeServiceImpl pikeService = new PikeServiceImpl(u);
+            Usuario usuario = pikeService.login();
 
             if(usuario == null){
                 return false;
